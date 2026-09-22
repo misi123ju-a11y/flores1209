@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Bane • Flores Amarillas Mágicas 🌻✨</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Comfortaa:wght@700&family=Fredoka:wght@600;700&family=Montserrat:wght@300;400;600;700;800&family=Nunito:wght@800;900&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Canvas Confetti Library for explosion animations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --gold-primary: #f59e0b;
+            --gold-light: #fef08a;
+            --gold-glow: rgba(251, 191, 36, 0.6);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #060402;
+            color: #fff;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .font-handwriting {
+            font-family: 'Caveat', cursive;
+        }
+
+        .font-serif-custom {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Fuente bonita y redondeada para títulos */
+        .font-rounded-custom {
+            font-family: 'Fredoka', 'Comfortaa', 'Nunito', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        /* Glassmorphism styling */
+        .glass-card-ultra {
+            background: rgba(18, 13, 5, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(245, 158, 11, 0.25);
+        }
+
+        .glow-text-gold {
+            text-shadow: 0 0 20px rgba(253, 224, 71, 0.95), 0 0 40px rgba(245, 158, 11, 0.7), 0 0 80px rgba(217, 119, 6, 0.5);
+        }
+
+        /* Animated Shimmer Text Effect */
+        .shimmer-text {
+            background: linear-gradient(90deg, #fef08a 0%, #f59e0b 25%, #ffffff 50%, #f59e0b 75%, #fef08a 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Floating Butterfly Animations */
+        @keyframes flapLeft {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(70deg); }
+        }
+        @keyframes flapRight {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(-70deg); }
+        }
+
+        .wing-left {
+            transform-origin: right center;
+            animation: flapLeft 0.3s infinite ease-in-out;
+        }
+        .wing-right {
+            transform-origin: left center;
+            animation: flapRight 0.3s infinite ease-in-out;
+        }
+
+        @keyframes floatButterfly1 {
+            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+            25% { transform: translate(25px, -35px) rotate(12deg) scale(1.1); }
+            50% { transform: translate(45px, -15px) rotate(-8deg) scale(0.95); }
+            75% { transform: translate(18px, 25px) rotate(10deg) scale(1.05); }
+            100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+        }
+
+        .butterfly-1 { animation: floatButterfly1 7s infinite ease-in-out; }
+
+        @keyframes floatButterfly2 {
+            0% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+            33% { transform: translate(-35px, -30px) rotate(-15deg) scale(1.05); }
+            66% { transform: translate(-15px, 35px) rotate(10deg) scale(0.9); }
+            100% { transform: translate(0px, 0px) rotate(0deg) scale(1); }
+        }
+
+        .butterfly-2 { animation: floatButterfly2 10s infinite ease-in-out; }
+
+        @keyframes floatButterfly3 {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            50% { transform: translate(-30px, -45px) rotate(20deg); }
+            100% { transform: translate(0px, 0px) rotate(0deg); }
+        }
+
+        .butterfly-3 { animation: floatButterfly3 9s infinite ease-in-out; }
+
+        /* Rotating Vinyl Record */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spinSlow 8s linear infinite;
+        }
+
+        @keyframes bloomPetals {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            80% { transform: scale(1.15) rotate(8deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .animate-bloom {
+            animation: bloomPetals 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Pulsing Glow Ring */
+        @keyframes ringPulse {
+            0%, 100% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(251, 191, 36, 0.9), inset 0 0 35px rgba(251, 191, 36, 0.7); }
+        }
+
+        .pulse-ring {
+            animation: ringPulse 3s infinite ease-in-out;
+        }
+
+        /* 3D Tilt Card Perspective */
+        .tilt-container {
+            perspective: 1000px;
+        }
+        .tilt-card {
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Pulsing Heart Animation */
+        @keyframes pulseFast {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+        .animate-pulse-fast {
+            animation: pulseFast 1.2s infinite ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #060402; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 4px; }
+    </style>
+</head>
+<body class="relative min-h-screen text-amber-50 selection:bg-amber-500 selection:text-black">
+
+    <!-- Interactive Background Canvas (Falling Petals + Golden Sparkles) -->
+    <canvas id="bgCanvas" class="fixed inset-0 pointer-events-none z-10 w-full h-full"></canvas>
+
+    <!-- Floating YouTube Player Widget -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <div id="musicPlayerCard" class="bg-amber-950/90 backdrop-blur-xl border border-yellow-500/50 p-2.5 px-4 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 hover:border-yellow-300">
+            <!-- Vinyl Icon / Animated Equalizer -->
+            <div id="vinylDisc" class="relative w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center border border-amber-400 overflow-hidden cursor-pointer">
+                <i class="fas fa-compact-disc text-yellow-400 text-lg"></i>
+            </div>
+
+            <div class="flex flex-col">
+                <span class="text-[11px] font-bold text-yellow-300 tracking-wider uppercase leading-none">Desastre con cara de niño</span>
+                <span class="text-[10px] text-amber-200/80 font-medium">Soul-zam • Canción para Bane</span>
+            </div>
+
+            <button id="musicToggleBtn" aria-label="Reproducir música" class="ml-2 w-9 h-9 rounded-full bg-gradient-to-tr from-yellow-500 to-amber-400 text-slate-950 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all cursor-pointer">
+                <i id="musicIcon" class="fas fa-play text-xs"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Elemento Audio para reproducir el MP3 local en GitHub -->
+    <audio id="bgAudio" src="musica.mp3" loop preload="auto"></audio>
+
+    <!-- Main Content Wrapper -->
+    <main class="relative z-20 max-w-5xl mx-auto px-4 py-8 md:py-12 flex flex-col items-center justify-center min-h-screen">
+
+        <!-- Romantic Date Badge -->
+        <div class="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-amber-500/15 border border-yellow-400/50 text-amber-200 text-xs md:text-sm font-medium tracking-wide mb-6 shadow-xl backdrop-blur-md">
+            <i class="fas fa-sun text-yellow-400 animate-spin" style="animation-duration: 12s;"></i>
+            <span>Flores Amarillas para Bane • Un detalle infinito a la distancia</span>
+            <i class="fas fa-sparkles text-yellow-300 animate-pulse"></i>
+        </div>
+
+        <!-- Main Title: PARA LA MÁS HERMOSA -->
+        <div class="relative text-center mb-4 group cursor-default">
+            <!-- Glow Effect Behind Title -->
+            <div class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-yellow-500/20 via-amber-400/30 to-yellow-600/20 blur-xl opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+            <h1 class="relative text-4xl sm:text-6xl md:text-8xl font-bold text-center shimmer-text glow-text-gold tracking-wide font-rounded-custom uppercase drop-shadow-2xl transition-transform duration-300 hover:scale-105">
+                PARA LA MÁS HERMOSA
+            </h1>
+            
+            <div class="mt-2 flex items-center justify-center gap-3">
+                <span class="h-[2px] w-12 bg-gradient-to-r from-transparent to-yellow-400"></span>
+                <span class="font-handwriting text-amber-300 text-4xl sm:text-6xl md:text-7xl font-bold tracking-wide drop-shadow-lg">
+                    ✨ Bane ✨
+                </span>
+                <span class="h-[2px] w-12 bg-gradient-to-l from-transparent to-yellow-400"></span>
+            </div>
+        </div>
+        
+        <p class="text-amber-200/90 text-center text-sm sm:text-base md:text-xl font-light max-w-2xl mb-8 leading-relaxed">
+            Aunque hoy no pueda estar a tu lado para entregarte flores amarillas en tus manos, he creado este jardín mágico animado solo para hacerte sonreír. 🌻✨
+        </p>
+
+        <!-- Central Card with Photo Frame -->
+        <div class="w-full max-w-2xl my-2 relative tilt-container">
+            
+            <!-- Animated Butterflies around Card -->
+            <div class="absolute -top-10 -left-6 z-30 pointer-events-none butterfly-1">
+                <svg width="65" height="65" viewBox="0 0 100 100" class="drop-shadow-[0_0_15px_rgba(251,191,36,0.9)]">
+                    <g transform="translate(50,50)">
+                        <path class="wing-left" d="M-2,-5 C-25,-40 -50,-20 -40,10 C-35,25 -10,20 -2,0 Z" fill="#fcd34d" />
+                        <path class="wing-right" d="M2,-5 C25,-40 50,-20 40,10 C35,25 10,20 2,0 Z" fill="#fbbf24" />
+                        <ellipse cx="0" cy="0" rx="2" ry="12" fill="#78350f" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="absolute -bottom-8 -right-6 z-30 pointer-events-none butterfly-2">
+                <svg width="75" height="75" viewBox="0 0 100 100" class="drop-shadow-[0_0_18px_rgba(253,224,71,0.95)]">
+                    <g transform="translate(50,50)">
+                        <path class="wing-left" d="M-2,-5 C-30,-45 -55,-10 -35,20 C-25,30 -5,20 -2,0 Z" fill="#fde047" />
+                        <path class="wing-right" d="M2,-5 C30,-45 55,-10 35,20 C25,30 5,20 2,0 Z" fill="#f59e0b" />
+                        <ellipse cx="0" cy="0" rx="2" ry="14" fill="#451a03" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="absolute top-1/2 -right-10 z-30 pointer-events-none butterfly-3 hidden md:block">
+                <svg width="50" height="50" viewBox="0 0 100 100" class="drop-shadow-[0_0_12px_rgba(251,191,36,0.8)]">
+                    <g transform="translate(50,50)">
+                        <path class="wing-left" d="M-2,-5 C-20,-30 -40,-15 -30,8 C-25,18 -8,15 -2,0 Z" fill="#fef08a" />
+                        <path class="wing-right" d="M2,-5 C20,-30 40,-15 30,8 C25,18 8,15 2,0 Z" fill="#f59e0b" />
+                        <ellipse cx="0" cy="0" rx="1.5" ry="10" fill="#451a03" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Glass Card Container with 3D Tilt Effect -->
+            <div id="tiltCard" class="tilt-card glass-card-ultra rounded-3xl p-6 sm:p-8 md:p-10 text-center relative overflow-hidden">
+                
+                <!-- Ambient Glow Background -->
+                <div class="absolute inset-0 bg-gradient-to-b from-amber-500/15 via-transparent to-amber-950/40 pointer-events-none"></div>
+
+                <!-- Bane's Image Frame with Interactive Glow -->
+                <div class="relative mx-auto w-52 h-52 sm:w-60 sm:h-60 md:w-64 md:h-64 mb-8 group cursor-pointer">
+                    <div class="absolute -inset-4 rounded-full bg-gradient-to-tr from-yellow-400 via-amber-500 to-yellow-100 opacity-80 blur-xl group-hover:opacity-100 transition-opacity animate-pulse"></div>
+                    
+                    <div class="absolute -top-3 -left-3 z-20 text-yellow-300 text-3xl md:text-4xl animate-bounce" style="animation-duration: 3s;">🌻</div>
+                    <div class="absolute -bottom-3 -right-3 z-20 text-yellow-300 text-3xl md:text-4xl animate-bounce" style="animation-duration: 3.5s;">🌻</div>
+                    <div class="absolute top-2 -right-2 z-20 text-amber-300 text-2xl animate-pulse-fast">✨</div>
+
+                    <div class="relative z-10 w-full h-full rounded-full overflow-hidden border-4 border-yellow-400/90 pulse-ring shadow-2xl">
+                        <img 
+                            id="banePhoto"
+                            src="https://media.discordapp.net/attachments/737675967199445060/1551769409847300126/Gemini_Generated_Image_c4oid0c4oid0c4oi.jpg?ex=6ab32d61&is=6ab1dbe1&hm=c67893155a6dabc1e2e4b95f4814bfa4b261c1be04fcfb55cf53cc22513c1cbc&=&format=webp&width=966&height=1024" 
+                            alt="Bane" 
+                            class="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700 filter brightness-105 contrast-105"
+                            onerror="this.onerror=null; this.src='https://placehold.co/400x400/f59e0b/000000?text=Bane';"
+                        />
+                    </div>
+                </div>
+
+                <div class="space-y-4 mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-yellow-300 font-serif-custom drop-shadow-md">
+                        "En cada flor amarilla habita un abrazo para ti"
+                    </h2>
+                    
+                    <div class="bg-black/60 rounded-2xl p-4 sm:p-5 border border-yellow-500/30 text-amber-100/90 text-sm md:text-base font-light leading-relaxed min-h-[85px] flex items-center justify-center shadow-inner">
+                        <p id="typewriterText" class="font-serif-custom italic text-amber-200 transition-opacity duration-500">
+                            Pensando en ti en este día tan especial...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Action Toolbar -->
+                <div class="flex flex-wrap items-center justify-center gap-3.5 relative z-20">
+                    <button id="openBouquetBtn" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-500 text-slate-950 font-bold text-sm sm:text-base shadow-lg hover:shadow-yellow-500/50 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                        <i class="fas fa-gift text-slate-900"></i>
+                        <span>¡Abrir Ramo Gigante!</span>
+                    </button>
+
+                    <button id="openLetterBtn" class="px-6 py-3.5 rounded-full bg-amber-950/90 hover:bg-amber-900/90 text-amber-200 border border-yellow-500/50 font-semibold text-sm sm:text-base shadow-md hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                        <i class="fas fa-envelope text-yellow-400"></i>
+                        <span>Carta para Bane</span>
+                    </button>
+
+                    <button id="sendHugBtn" class="px-6 py-3.5 rounded-full bg-yellow-500/15 hover:bg-yellow-500/25 text-yellow-300 border border-yellow-400/40 font-semibold text-sm sm:text-base hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                        <i class="fas fa-heart text-amber-400 animate-pulse"></i>
+                        <span>Abrazo Virtual</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Interactive Sunflower Garden Sandbox -->
+        <div class="w-full max-w-2xl my-6 glass-card-ultra rounded-3xl p-6 sm:p-8 text-center border border-yellow-500/30 relative overflow-hidden">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <i class="fas fa-spa text-yellow-400 text-xl animate-bounce"></i>
+                <h3 class="text-xl sm:text-2xl font-bold text-amber-300 font-serif-custom">
+                    Jardín de Flores Amarillas Interactivo
+                </h3>
+            </div>
+            <p class="text-amber-200/70 text-xs sm:text-sm mb-4">
+                Toca o haz clic sobre el recuadro para hacer brotar flores amarillas luminosas para Bane.
+            </p>
+            
+            <div id="interactiveGarden" class="w-full h-52 sm:h-60 rounded-2xl bg-black/70 border-2 border-dashed border-amber-500/40 relative overflow-hidden cursor-pointer group hover:border-amber-400/80 transition-colors shadow-inner flex items-center justify-center">
+                <span class="text-amber-300/70 text-sm font-medium group-hover:text-amber-300 transition-colors pointer-events-none select-none flex items-center gap-2">
+                    <i class="fas fa-hand-pointer animate-bounce text-yellow-400"></i> Toca aquí para sembrar flores
+                </span>
+                <div id="gardenFlowerContainer" class="absolute inset-0 pointer-events-none"></div>
+            </div>
+            
+            <div class="mt-4 flex justify-between items-center text-xs text-amber-400/80 px-2">
+                <span id="flowerCounter">Flores regaladas a Bane: <strong id="flowerCountVal" class="text-yellow-300 text-base font-bold">0</strong></span>
+                <button id="clearGardenBtn" class="hover:underline text-amber-300 flex items-center gap-1 cursor-pointer">
+                    <i class="fas fa-redo-alt text-xs"></i> Reiniciar Jardín
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-6 text-center text-amber-300/80 text-xs sm:text-sm space-y-2">
+            <p class="font-handwriting text-3xl text-yellow-300 drop-shadow">Con todo mi cariño para ti, Bane ❤️</p>
+            <p class="text-amber-400/60">Flores Amarillas Infinitas • 21 de Septiembre</p>
+        </footer>
+
+    </main>
+
+    <!-- Bouquet Modal -->
+    <div id="bouquetModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card-ultra max-w-lg w-full rounded-3xl p-6 sm:p-8 text-center relative border border-yellow-400/50 transform scale-90 transition-all duration-300 shadow-2xl overflow-hidden">
+            
+            <button id="closeBouquetBtn" type="button" aria-label="Cerrar Ramo" class="absolute top-4 right-4 text-amber-300 hover:text-white w-10 h-10 rounded-full bg-amber-950/90 border border-amber-500/40 flex items-center justify-center transition-colors cursor-pointer z-30">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <div id="bouquetFlowerDisplay" class="relative my-4 h-56 flex items-center justify-center">
+                <svg class="w-full h-full" viewBox="0 0 300 240">
+                    <path d="M150,230 Q140,160 110,100" stroke="#15803d" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    <path d="M150,230 Q150,150 150,80" stroke="#16a34a" stroke-width="7" fill="none" stroke-linecap="round"/>
+                    <path d="M150,230 Q160,160 190,95" stroke="#15803d" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    
+                    <path d="M135,180 Q150,170 165,180 Q180,195 165,210 Q150,190 135,210 Q120,195 135,180 Z" fill="#dc2626"/>
+                    <circle cx="150" cy="185" r="8" fill="#b91c1c"/>
+
+                    <g class="animate-bloom" style="animation-delay: 0.2s; transform-origin: 110px 100px;">
+                        <circle cx="110" cy="100" r="30" fill="#f59e0b"/>
+                        <circle cx="110" cy="100" r="16" fill="#451a03"/>
+                        <text x="110" y="105" font-size="28" text-anchor="middle" dominant-baseline="middle">🌻</text>
+                    </g>
+
+                    <g class="animate-bloom" style="animation-delay: 0.5s; transform-origin: 150px 75px;">
+                        <circle cx="150" cy="75" r="38" fill="#fbbf24"/>
+                        <circle cx="150" cy="75" r="20" fill="#451a03"/>
+                        <text x="150" y="80" font-size="36" text-anchor="middle" dominant-baseline="middle">🌻</text>
+                    </g>
+
+                    <g class="animate-bloom" style="animation-delay: 0.8s; transform-origin: 190px 95px;">
+                        <circle cx="190" cy="95" r="32" fill="#f59e0b"/>
+                        <circle cx="190" cy="95" r="17" fill="#451a03"/>
+                        <text x="190" y="100" font-size="30" text-anchor="middle" dominant-baseline="middle">🌻</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-yellow-300 font-serif-custom mb-2">¡Ramo Especial para Bane!</h3>
+            <p class="text-amber-100/90 text-xs sm:text-sm font-light mb-6">
+                Un ramo infinito lleno de luz, ternura y buenos deseos que jamás se marchitará.
+            </p>
+
+            <button id="closeBouquetActionBtn" type="button" class="w-full py-3.5 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950 font-bold shadow-lg hover:brightness-110 transition-all cursor-pointer">
+                Recibir con Amor 💛
+            </button>
+        </div>
+    </div>
+
+    <!-- Romantic Letter Modal -->
+    <div id="letterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card-ultra max-w-lg w-full rounded-3xl p-6 sm:p-8 relative border border-yellow-400/50 transform scale-95 transition-all duration-300 shadow-2xl max-h-[90vh] overflow-y-auto">
+            
+            <button id="closeLetterBtn" type="button" aria-label="Cerrar Carta" class="absolute top-4 right-4 text-amber-300 hover:text-white w-10 h-10 rounded-full bg-amber-950/90 border border-amber-500/40 flex items-center justify-center transition-colors cursor-pointer z-30">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <div class="inline-block p-3.5 rounded-full bg-yellow-500/20 text-yellow-300 text-3xl mb-2">
+                    💌
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-bold font-serif-custom text-yellow-300">Para Ti, Bane</h3>
+                <p class="text-amber-400/80 text-xs">Una cartita directa desde mi corazón</p>
+            </div>
+
+            <div class="space-y-4 text-amber-100 font-light text-sm sm:text-base leading-relaxed border-t border-b border-yellow-500/20 py-4 my-4 font-serif-custom">
+                <p><strong class="text-yellow-300 text-base">Querida Bane,</strong></p>
+                <p>
+                    Dicen que regalar flores amarillas el 21 de septiembre es una forma hermosa de expresar el deseo de compartir momentos llenos de luz, alegría y permanencia al lado de alguien especial.
+                </p>
+                <p>
+                    Aun cuando los kilómetros nos mantengan a distancia hoy y no pueda entregarte un ramo fresco en tus manos, quería que supieras que no me olvidé de ti. Este pequeño detalle digital fue creado pensando en ti, para sacarte una sonrisa y recordarte lo importante y valiosa que eres para mí.
+                </p>
+                <p>
+                    Que estas flores amarillas virtuales llenen tu día de luz, calma y mucha felicidad. ¡Te envío un abrazo gigantesco y todo mi cariño!
+                </p>
+            </div>
+
+            <div class="text-center pt-2">
+                <button id="closeLetterActionBtn" type="button" class="w-full py-3.5 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950 font-bold text-sm shadow-lg hover:brightness-110 transition-all cursor-pointer">
+                    Guardar esta nota en el corazón ✨
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-amber-500 text-slate-950 px-6 py-3 rounded-full font-bold text-xs sm:text-sm shadow-2xl flex items-center gap-2 pointer-events-none opacity-0 transition-all duration-300 border border-yellow-200">
+        <i class="fas fa-heart text-amber-950 animate-bounce"></i>
+        <span id="toastText">¡Abrazo virtual enviado a Bane! 🤗🌻</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const bgAudio = document.getElementById('bgAudio');
+        let isPlayingMusic = false;
+
+        // Web Audio Synthesizer Fallback / Sound Effects
+        const audioSynth = {
+            ctx: null,
+            init() {
+                try {
+                    if (!this.ctx) {
+                        const AudioContext = window.AudioContext || window.webkitAudioContext;
+                        if (AudioContext) {
+                            this.ctx = new AudioContext();
+                        }
+                    }
+                    if (this.ctx && this.ctx.state === 'suspended') {
+                        this.ctx.resume();
+                    }
+                } catch (e) {
+                    console.warn("Audio Context warning:", e);
+                }
+            },
+            playSparkleChime() {
+                try {
+                    this.init();
+                    if (!this.ctx) return;
+                    const now = this.ctx.currentTime;
+                    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+                    notes.forEach((freq, idx) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        gain.gain.setValueAtTime(0.1, now + idx * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.08 + 0.6);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start(now + idx * 0.08);
+                        osc.stop(now + idx * 0.08 + 0.6);
+                    });
+                } catch (e) {
+                    // Ignore audio restrictions
+                }
+            }
+        };
+
+        // Music Controller
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        const vinylDisc = document.getElementById('vinylDisc');
+
+        function updateMusicUI(playing) {
+            if (playing) {
+                if (musicIcon) musicIcon.className = "fas fa-pause text-xs";
+                if (vinylDisc) vinylDisc.classList.add('animate-spin-slow');
+            } else {
+                if (musicIcon) musicIcon.className = "fas fa-play text-xs";
+                if (vinylDisc) vinylDisc.classList.remove('animate-spin-slow');
+            }
+        }
+
+        function toggleMusic() {
+            audioSynth.playSparkleChime();
+
+            if (!bgAudio) return;
+
+            if (bgAudio.paused) {
+                bgAudio.play().then(() => {
+                    isPlayingMusic = true;
+                    updateMusicUI(true);
+                    showToast("🎵 Sonando: Desastre con cara de niño (Soul-zam)");
+                }).catch(err => {
+                    console.warn("Error al reproducir audio:", err);
+                    showToast("⚠️ Coloca 'musica.mp3' en la misma carpeta para reproducir");
+                });
+            } else {
+                bgAudio.pause();
+                isPlayingMusic = false;
+                updateMusicUI(false);
+                showToast("Música pausada 🔇");
+            }
+        }
+
+        // Sincronizar UI con el reproductor de audio
+        bgAudio?.addEventListener('play', () => updateMusicUI(true));
+        bgAudio?.addEventListener('pause', () => updateMusicUI(false));
+
+        musicToggleBtn?.addEventListener('click', toggleMusic);
+        vinylDisc?.addEventListener('click', toggleMusic);
+
+        // Toast Handler
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toastText');
+        let toastTimer;
+
+        function showToast(message) {
+            if (!toast || !toastText) return;
+            toastText.innerText = message;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, -10px)';
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, 0px)';
+            }, 3500);
+        }
+
+        // Typewriter Rotating Quotes
+        const quotes = [
+            "\"Cada flor amarilla lleva un rayo de sol directo a ti, Bane.\"",
+            "\"Aunque la distancia sea larga, mi cariño siempre te alcanza.\"",
+            "\"Un detalle brillante para la persona más especial de todas.\"",
+            "\"Que tu día esté tan lleno de luz como tu sonrisa, Bane.\""
+        ];
+        let currentQuoteIndex = 0;
+        const typewriterElement = document.getElementById('typewriterText');
+
+        function rotateQuotes() {
+            if (!typewriterElement) return;
+            typewriterElement.style.opacity = '0';
+            setTimeout(() => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                typewriterElement.innerText = quotes[currentQuoteIndex];
+                typewriterElement.style.opacity = '1';
+            }, 500);
+        }
+        setInterval(rotateQuotes, 5000);
+
+        // Modal Controllers (Bouquet & Letter)
+        const bouquetModal = document.getElementById('bouquetModal');
+        const letterModal = document.getElementById('letterModal');
+
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 70,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#f59e0b', '#fde047', '#fbbf24', '#ffffff', '#e11d48']
+                });
+            }
+        }
+
+        function openBouquet() {
+            audioSynth.playSparkleChime();
+            triggerConfetti();
+            if (!bouquetModal) return;
+            bouquetModal.classList.remove('pointer-events-none', 'opacity-0');
+            bouquetModal.classList.add('opacity-100');
+            const innerCard = bouquetModal.firstElementChild;
+            if (innerCard) {
+                innerCard.classList.remove('scale-90');
+                innerCard.classList.add('scale-100');
+            }
+            showToast("¡Un gran ramo de girasoles floreció para Bane! 🌻✨");
+        }
+
+        function closeBouquet() {
+            if (!bouquetModal) return;
+            bouquetModal.classList.add('pointer-events-none');
+            bouquetModal.classList.remove('opacity-100');
+            bouquetModal.classList.add('opacity-0');
+            const innerCard = bouquetModal.firstElementChild;
+            if (innerCard) {
+                innerCard.classList.remove('scale-100');
+                innerCard.classList.add('scale-90');
+            }
+        }
+
+        function openLetter() {
+            audioSynth.playSparkleChime();
+            if (!letterModal) return;
+            letterModal.classList.remove('pointer-events-none', 'opacity-0');
+            letterModal.classList.add('opacity-100');
+            const innerCard = letterModal.firstElementChild;
+            if (innerCard) {
+                innerCard.classList.remove('scale-95');
+                innerCard.classList.add('scale-100');
+            }
+        }
+
+        function closeLetter() {
+            if (!letterModal) return;
+            letterModal.classList.add('pointer-events-none');
+            letterModal.classList.remove('opacity-100');
+            letterModal.classList.add('opacity-0');
+            const innerCard = letterModal.firstElementChild;
+            if (innerCard) {
+                innerCard.classList.remove('scale-100');
+                innerCard.classList.add('scale-95');
+            }
+            showToast("¡Nota guardada en el corazón! ❤️✨");
+        }
+
+        // Attach Event Listeners safely
+        document.getElementById('openBouquetBtn')?.addEventListener('click', openBouquet);
+        document.getElementById('closeBouquetBtn')?.addEventListener('click', closeBouquet);
+        document.getElementById('closeBouquetActionBtn')?.addEventListener('click', closeBouquet);
+
+        document.getElementById('openLetterBtn')?.addEventListener('click', openLetter);
+        document.getElementById('closeLetterBtn')?.addEventListener('click', closeLetter);
+        document.getElementById('closeLetterActionBtn')?.addEventListener('click', closeLetter);
+
+        document.getElementById('sendHugBtn')?.addEventListener('click', () => {
+            audioSynth.playSparkleChime();
+            triggerConfetti();
+            showToast("🤗 ¡Abrazo gigante y cálido enviado a Bane! 💛");
+        });
+
+        // Close when clicking overlay backdrop
+        letterModal?.addEventListener('click', (e) => {
+            if (e.target === letterModal) closeLetter();
+        });
+        bouquetModal?.addEventListener('click', (e) => {
+            if (e.target === bouquetModal) closeBouquet();
+        });
+
+        // Close on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLetter();
+                closeBouquet();
+            }
+        });
+
+        // Sandbox Garden Logic
+        const garden = document.getElementById('interactiveGarden');
+        const flowerContainer = document.getElementById('gardenFlowerContainer');
+        const flowerCountVal = document.getElementById('flowerCountVal');
+        const clearGardenBtn = document.getElementById('clearGardenBtn');
+        let flowerCount = 0;
+
+        const flowerEmojis = ['🌻', '🌼', '💛', '✨', '🌸', '🌻'];
+
+        garden?.addEventListener('click', (e) => {
+            audioSynth.playSparkleChime();
+            const rect = garden.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const elem = document.createElement('div');
+            elem.className = 'absolute pointer-events-none transform -translate-x-1/2 -translate-y-1/2 text-3xl transition-transform duration-500 animate-bounce';
+            elem.style.left = `${x}px`;
+            elem.style.top = `${y}px`;
+            elem.innerText = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            
+            flowerContainer?.appendChild(elem);
+            flowerCount++;
+            if (flowerCountVal) flowerCountVal.innerText = flowerCount;
+        });
+
+        clearGardenBtn?.addEventListener('click', () => {
+            if (flowerContainer) flowerContainer.innerHTML = '';
+            flowerCount = 0;
+            if (flowerCountVal) flowerCountVal.innerText = '0';
+            showToast("Jardín reiniciado 🌻");
+        });
+
+        // 3D Tilt Card Effect
+        const tiltCard = document.getElementById('tiltCard');
+        if (tiltCard && window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                const xPos = (clientX / innerWidth - 0.5) * 15;
+                const yPos = (clientY / innerHeight - 0.5) * -15;
+
+                tiltCard.style.transform = `rotateY(${xPos}deg) rotateX(${yPos}deg)`;
+            });
+        }
+
+        // Background Petals & Sparkles Canvas Animation
+        const canvas = document.getElementById('bgCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Petal {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = -20;
+                    this.size = Math.random() * 8 + 4;
+                    this.speedY = Math.random() * 1.5 + 0.8;
+                    this.speedX = Math.random() * 1.2 - 0.6;
+                    this.opacity = Math.random() * 0.7 + 0.3;
+                    this.rotation = Math.random() * 360;
+                    this.rotSpeed = Math.random() * 2 - 1;
+                    this.isGlow = Math.random() > 0.6;
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += Math.sin(this.y * 0.01) + this.speedX;
+                    this.rotation += this.rotSpeed;
+                    if (this.y > canvas.height + 20) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    if (!ctx) return;
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate((this.rotation * Math.PI) / 180);
+
+                    if (this.isGlow) {
+                        ctx.fillStyle = `rgba(253, 224, 71, ${this.opacity})`;
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = '#f59e0b';
+                    } else {
+                        ctx.fillStyle = `rgba(251, 191, 36, ${this.opacity})`;
+                    }
+
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < 45; i++) {
+                particles.push(new Petal());
+            }
+
+            function animateCanvas() {
+                if (ctx) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+                }
+                requestAnimationFrame(animateCanvas);
+            }
+            animateCanvas();
+        }
+
+        window.onload = function() {
+            setTimeout(() => {
+                audioSynth.playSparkleChime();
+            }, 500);
+        };
+    </script>
+</body>
+</html>
